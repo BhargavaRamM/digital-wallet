@@ -1,3 +1,11 @@
+#Instructions:
+
+Download the csv files from the Dropbox link and place them in the paymo_input directory.
+
+`./run.sh`
+
+
+
 # Table of Contents
 
 1. [Challenge Summary] (README.md#challenge-summary)
