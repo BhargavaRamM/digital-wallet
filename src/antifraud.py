@@ -35,7 +35,7 @@ class AntiFraud():
 		# If found then writes trusted to output1.txt, else writes unverified.
 		with open(self._op1,'wb') as op:
 			for item in self._streamdata:
-				if (item[1].lstrip() in nodes) and (item[2].lstrip() in nodes[item[1].lstrip()]):
+				if (item[1]  in nodes) and (item[2]  in nodes[item[1] ]):
 					op.write("trusted\n")
 				else:
 					op.write("unverified\n")
@@ -47,11 +47,11 @@ class AntiFraud():
 		present = None
 		with open(self._op2,'wb') as op:
 			for item in self._streamdata:
-				if (item[1].lstrip() in nodes) and (item[2].lstrip() in nodes[item[1].lstrip()]):
+				if (item[1]  in nodes) and (item[2]  in nodes[item[1] ]):
 					op.write("trusted\n")
-				elif (item[1].lstrip() in nodes) and (item[2].lstrip() not in nodes[item[1].lstrip()]):
-					for x in nodes[item[1].lstrip()]:
-						if x in nodes and item[2].lstrip() in nodes[x]:
+				elif (item[1]  in nodes) and (item[2]  not in nodes[item[1] ]):
+					for x in nodes[item[1] ]:
+						if x in nodes and item[2]  in nodes[x]:
 							present = True
 							break
 						else:
@@ -99,10 +99,10 @@ class AntiFraud():
 		# If found then writes trusted to output3.txt, else writes unverified.
 		with open(self._op3,'wb') as op:
 			for item in self._streamdata:
-				if item[1].lstrip() in nodes and item[2].lstrip() in nodes[item[1].lstrip()]:
+				if item[1] in nodes and item[2] in nodes[item[1]]:
 					op.write("trusted\n")
 				else:
-					present = self.connection(nodes,item[1].lstrip(),item[2].lstrip())
+					present = self.connection(nodes,item[1],item[2])
 					if present:
 						op.write("trusted\n")
 					else:
@@ -115,24 +115,24 @@ class AntiFraud():
 		# Keys include vertices and values include the vertex's neighbors.
 		nodes = dict()
 		for item in self._bulkdata:
-			if item[1].lstrip() not in nodes:
-				if item[2].lstrip() not in nodes:
-					nodes[item[1].lstrip()] = set()
-					nodes[item[1].lstrip()].add(item[2].lstrip())
-					nodes[item[2].lstrip()] = set()
-					nodes[item[2].lstrip()].add(item[1].lstrip())
+			if item[1]  not in nodes:
+				if item[2]  not in nodes:
+					nodes[item[1]] = set()
+					nodes[item[1]].add(item[2])
+					nodes[item[2]] = set()
+					nodes[item[2]].add(item[1])
 				else:
-					nodes[item[1].lstrip()] = set()
-					nodes[item[1].lstrip()].add(item[2].lstrip())
-					nodes[item[2].lstrip()].add(item[1].lstrip())
+					nodes[item[1]] = set()
+					nodes[item[1]].add(item[2])
+					nodes[item[2]].add(item[1])
 			else:
-				if item[2].lstrip() not in nodes:
-					nodes[item[2].lstrip()] = set()
-					nodes[item[2].lstrip()].add(item[1].lstrip())
-					nodes[item[1].lstrip()].add(item[2].lstrip())
+				if item[2]  not in nodes:
+					nodes[item[2]] = set()
+					nodes[item[2]].add(item[1])
+					nodes[item[1]].add(item[2])
 				else:
-					nodes[item[1].lstrip()].add(item[2].lstrip())
-					nodes[item[2].lstrip()].add(item[1].lstrip())
+					nodes[item[1]].add(item[2])
+					nodes[item[2]].add(item[1])
 		self.feature1(nodes)
 		print "Feature-1 is written to %s " % self._op1
 		self.feature2(nodes)
